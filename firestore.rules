@@ -1,0 +1,12 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Starter rule: only signed-in users can access the shared business records.
+    // IMPORTANT: this lets every authenticated account in this Firebase project
+    // read/write the same records. Only allow trusted staff to create accounts,
+    // or replace this with role/organization-based rules before public launch.
+    match /businessRecords/{recordId} {
+      allow read, create, update, delete: if request.auth != null;
+    }
+  }
+}

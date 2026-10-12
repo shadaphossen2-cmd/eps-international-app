@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EPS INTERNATIONAL | Business Manager</title>
+<style>
+:root{--navy:#0b1d36;--blue:#1457b8;--gold:#e5b84b;--bg:#f3f6fb;--ink:#17243a;--muted:#66748a;--line:#dfe6f0}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:white;padding:16px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800;letter-spacing:.3px}.brand small{display:block;color:var(--gold);font-size:11px;letter-spacing:1.4px}
+button{border:0;border-radius:9px;padding:10px 13px;background:var(--blue);color:white;font-weight:650;cursor:pointer}button.secondary{background:#e8eef8;color:var(--navy)}button.danger{background:#b42332}
+main{max-width:1200px;margin:auto;padding:18px}.hidden{display:none!important}
+.card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 4px 16px #10284a0a}
+.auth{max-width:430px;margin:8vh auto}.auth h1{font-size:23px}.muted{color:var(--muted);font-size:13px}.notice{padding:12px;border-radius:10px;background:#fff7df;color:#694e00;font-size:13px;margin:12px 0}
+input,select{width:100%;padding:11px;border:1px solid #ccd6e5;border-radius:9px;font:inherit;background:white}label{font-size:13px;color:var(--muted);display:block;margin:10px 0 5px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.stat strong{font-size:22px;display:block;margin-top:8px}.stat span{color:var(--muted);font-size:13px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tabs button{background:#e6ecf5;color:var(--navy)}.tabs button.active{background:var(--blue);color:white}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.toolbar h2{margin:0;font-size:20px}
+.formgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;align-items:end}.formgrid .wide{grid-column:span 2}
+.tablewrap{overflow:auto;margin-top:14px}table{width:100%;border-collapse:collapse;min-width:560px}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line);font-size:13px}th{color:var(--muted);background:#f8faff}
+#status{font-size:13px;color:#dbe8ff}.error{color:#b42332}.pill{font-size:12px;background:#edf3ff;color:#1457b8;padding:4px 8px;border-radius:99px}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid .wide{grid-column:span 2}main{padding:12px}}
+@media(max-width:420px){.formgrid{grid-template-columns:1fr}.formgrid .wide{grid-column:span 1}}
+</style>
+</head>
+<body>
+<header><div class="brand">🌐 EPS INTERNATIONAL<small>BUSINESS MANAGEMENT SYSTEM</small></div><div><span id="status">Firebase setup required</span> <button id="logout" class="secondary hidden">লগআউট</button></div></header>
+<main>
+<section id="auth" class="card auth">
+<h1>ব্যবসায়িক অ্যাপে লগইন</h1><p class="muted">একই প্রতিষ্ঠানের অনুমোদিত কর্মীরা একই ক্লাউড ডেটা ব্যবহার করতে পারবেন।</p>
+<div class="notice">প্রথমে <code>app.js</code>-এ আপনার Firebase web config বসান এবং Firebase Console-এ Authentication ও Firestore চালু করুন।</div>
+<label>ইমেইল</label><input id="email" type="email" autocomplete="username" placeholder="name@company.com">
+<label>পাসওয়ার্ড</label><input id="password" type="password" autocomplete="current-password" placeholder="কমপক্ষে ৬ অক্ষর">
+<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button id="login">লগইন</button><button id="signup" class="secondary">নতুন অ্যাকাউন্ট তৈরি</button></div><p id="authmsg" class="muted"></p>
+</section>
+<section id="app" class="hidden">
+<div class="toolbar"><div><h2>ব্যবসার ড্যাশবোর্ড</h2><span class="muted">লাইভ ক্লাউড ডেটা • EPS INTERNATIONAL</span></div><span class="pill" id="userbadge"></span></div>
+<div class="grid">
+<div class="card stat"><span>মোট বিক্রয়</span><strong id="salesTotal">৳ ০</strong></div>
+<div class="card stat"><span>মোট ক্রয়</span><strong id="purchaseTotal">৳ ০</strong></div>
+<div class="card stat"><span>স্টক আইটেম</span><strong id="stockCount">০</strong></div>
+<div class="card stat"><span>রেকর্ড সংখ্যা</span><strong id="recordCount">০</strong></div>
+</div>
+<div class="tabs" id="tabs">
+<button class="active" data-type="sales">বিক্রয়</button><button data-type="purchases">ক্রয়</button><button data-type="stock">স্টক</button><button data-type="expenses">খরচ</button><button data-type="employees">কর্মচারী</button><button data-type="deliveries">ডেলিভারি</button>
+</div>
+<div class="card">
+<div class="toolbar"><h2 id="sectionTitle">বিক্রয় রেকর্ড</h2><button id="refresh" class="secondary">রিফ্রেশ</button></div>
+<form id="entryForm"><div class="formgrid">
+<div><label>তারিখ</label><input id="date" type="date" required></div>
+<div><label>নাম / বিবরণ</label><input id="name" required placeholder="পণ্য বা বিবরণ"></div>
+<div><label>পরিমাণ</label><input id="qty" type="number" min="0" step="any" value="1" required></div>
+<div><label>টাকার পরিমাণ</label><input id="amount" type="number" min="0" step="0.01" value="0" required></div>
+<div class="wide"><label>নোট (ঐচ্ছিক)</label><input id="note" placeholder="অতিরিক্ত তথ্য"></div>
+<div><button type="submit">রেকর্ড যোগ করুন</button></div>
+</div></form>
+<div class="tablewrap"><table><thead><tr><th>তারিখ</th><th>নাম / বিবরণ</th><th>পরিমাণ</th><th>টাকা</th><th>নোট</th><th>কাজ</th></tr></thead><tbody id="rows"><tr><td colspan="6">ডেটা লোড হচ্ছে…</td></tr></tbody></table></div>
+<p class="muted">সতর্কতা: রেকর্ড মুছলে তা ক্লাউড থেকেও মুছে যাবে।</p>
+</div>
+</section>
+</main>
+<script type="module" src="./app.js"></script>
+</body></html>
