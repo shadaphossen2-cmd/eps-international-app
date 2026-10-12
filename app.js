@@ -3,20 +3,34 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "[
+const firebaseConfig ="{
+  "project_info": {
+    "project_number": "88974674796",
+    "project_id": "eps-international-e160b",
+    "storage_bucket": "eps-international-e160b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:88974674796:android:6c9243efc7e8776c5b4149",
+        "android_client_info": {
+          "package_name": "eps.managment.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
         {
-          "current_key": "AIzaSyCXv5oYBQYmTgPdDBf5R6koMsNubcUXAtU"
+          "current_key": "AIzaSyB9XDiSu1d4Wtmj5z0IEaTzd8GtfPAKcfI"
         }
       ],
-
-  authDomain: "158307836353.firebaseapp.com",
-  projectId: "eps-international",
-  storageBucket: "eps-international.firebasestorage.app"
-  },
-
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "1:158307836353:android:c60ab71a142bdc67970f40"
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 };
 const authBox=document.querySelector("#auth"), appBox=document.querySelector("#app");
 const authmsg=document.querySelector("#authmsg"), status=document.querySelector("#status");
